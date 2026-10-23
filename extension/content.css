@@ -1,0 +1,440 @@
+/* 一覧の行 */
+td.nbd-cell {
+  white-space: normal !important;
+}
+td.nbd-cell a.project-table-title {
+  display: inline;
+}
+.nbd-cb-wrap {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px 6px 0;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.nbd-cb {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #e5534b;
+}
+.nbd-sum {
+  margin: 2px 0 4px 28px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #9aa0a6;
+  max-width: 640px;
+}
+.nbd-sum-empty {
+  opacity: 0.5;
+}
+/* カード表示(グリッド) */
+mat-card.nbd-card {
+  position: relative;
+  height: auto !important;
+  min-height: 100%;
+}
+.nbd-cb-wrap.nbd-cb-card {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 5;
+  padding: 4px;
+  border-radius: 6px;
+  background: rgba(32, 33, 36, 0.8);
+}
+mat-card.nbd-card .nbd-sum,
+mat-card.nbd-card .nbd-plan {
+  position: relative;
+  z-index: 1;
+  margin: 6px 0 0;
+  max-width: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+mat-card.nbd-card.nbd-selected {
+  outline: 2px solid #e5534b;
+  outline-offset: -2px;
+}
+tr.nbd-selected {
+  background: rgba(229, 83, 75, 0.14) !important;
+}
+
+.nbd-plan {
+  margin: 0 0 4px 28px;
+  font-size: 12px;
+  color: #fdd663;
+}
+
+/* 拡張のオン・オフ(右下の丸ボタン)。オフの時は足したものを全部隠す */
+#nbd-fab {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2147483000;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #5f6368;
+  background: #202124;
+  color: #e8eaed;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  opacity: 0.75;
+}
+#nbd-fab:hover {
+  opacity: 1;
+}
+html.nbd-off #nbd-bar,
+html.nbd-off #nbd-srcbar,
+html.nbd-off .nbd-cb-wrap,
+html.nbd-off .nbd-sum,
+html.nbd-off .nbd-plan {
+  display: none !important;
+}
+html.nbd-off tr.nbd-selected {
+  background: none !important;
+}
+html.nbd-off mat-card.nbd-card.nbd-selected {
+  outline: none;
+}
+
+/* 下の小さな操作バー(一覧)と、ノートの中の重複バー。アイコンだけで詰めて並べる */
+#nbd-bar,
+#nbd-srcbar {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: #202124;
+  border: 1px solid #5f6368;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  color: #e8eaed;
+  font: 14px/1 "Google Sans", "Noto Sans JP", sans-serif;
+}
+#nbd-bar .nbd-count,
+#nbd-srcbar .nbd-count {
+  padding: 0 8px 0 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+#nbd-bar .nbd-ic,
+#nbd-srcbar .nbd-ic {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 34px;
+  padding: 0 12px 0 9px;
+  border: 0;
+  border-radius: 999px;
+  background: #303134;
+  color: #e8eaed;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.nbd-langnote {
+  padding: 0 8px;
+  color: #fdd663;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: help;
+}
+.nbd-ic-i {
+  font-size: 18px;
+  line-height: 1;
+}
+#nbd-bar .nbd-ic:hover:not(:disabled),
+#nbd-srcbar .nbd-ic:hover:not(:disabled) {
+  background: #3c4043;
+}
+#nbd-bar .nbd-ic.nbd-danger:not(:disabled),
+#nbd-srcbar .nbd-ic.nbd-danger:not(:disabled) {
+  background: #c5221f;
+}
+#nbd-bar .nbd-ic:disabled,
+#nbd-srcbar .nbd-ic:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+#nbd-overlay button {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid #5f6368;
+  background: #303134;
+  color: #e8eaed;
+  font: inherit;
+  cursor: pointer;
+}
+#nbd-overlay button:hover {
+  background: #3c4043;
+}
+#nbd-overlay button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+#nbd-overlay .nbd-danger {
+  background: #c5221f;
+  border-color: #c5221f;
+  color: #fff;
+  font-weight: 600;
+}
+#nbd-overlay .nbd-danger:hover:not(:disabled) {
+  background: #a50e0e;
+}
+/* カテゴリの画面 */
+.nbd-help {
+  margin: 0 0 10px;
+  color: #bdc1c6;
+  font-size: 13px;
+}
+.nbd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #bdc1c6;
+}
+.nbd-cats {
+  width: 100%;
+  box-sizing: border-box;
+  background: #171717;
+  color: #e8eaed;
+  border: 1px solid #5f6368;
+  border-radius: 8px;
+  padding: 8px;
+  font: 14px/1.5 "Google Sans", "Noto Sans JP", sans-serif;
+}
+.nbd-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+.nbd-sel {
+  background: #303134;
+  color: #e8eaed;
+  border: 1px solid #5f6368;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font: inherit;
+}
+.nbd-modal h3 {
+  margin: 8px 0 6px;
+  font-size: 14px;
+}
+.nbd-list li {
+  position: relative;
+}
+.nbd-filter,
+.nbd-edit {
+  width: 100%;
+  box-sizing: border-box;
+  background: #171717;
+  color: #e8eaed;
+  border: 1px solid #5f6368;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font: 14px/1.4 "Google Sans", "Noto Sans JP", sans-serif;
+}
+.nbd-filter {
+  margin: 8px 0;
+}
+.nbd-edit-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+}
+.nbd-edit-row .nbd-sel {
+  flex: 0 0 auto;
+  max-width: 40%;
+}
+.nbd-edit-row .nbd-edit {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+#nbd-overlay .nbd-edit-row .nbd-x {
+  float: none;
+  flex: 0 0 auto;
+}
+.nbd-row .nbd-filter {
+  flex: 1 1 200px;
+  margin: 0;
+}
+#nbd-overlay .nbd-toggle-btn.nbd-on {
+  background: #1a73e8;
+  border-color: #1a73e8;
+  color: #fff;
+}
+.nbd-li-about {
+  margin-top: 2px;
+  font-size: 12px;
+  color: #8ab4f8;
+}
+.nbd-preview {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #fdd663;
+}
+.nbd-preview:empty {
+  display: none;
+}
+.nbd-list li.nbd-changed {
+  background: rgba(253, 214, 99, 0.16);
+}
+.nbd-list li.nbd-changed .nbd-edit {
+  border-color: #fdd663;
+}
+#nbd-overlay .nbd-x {
+  float: right;
+  padding: 2px 8px;
+}
+.nbd-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+/* 確認画面 */
+#nbd-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483001;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 14px/1.5 "Google Sans", "Noto Sans JP", sans-serif;
+}
+.nbd-modal {
+  width: min(720px, 92vw);
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  background: #202124;
+  color: #e8eaed;
+  border: 1px solid #5f6368;
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+.nbd-modal h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+.nbd-warn {
+  margin: 0 0 12px;
+  color: #f28b82;
+}
+.nbd-list {
+  flex: 1;
+  overflow: auto;
+  margin: 0;
+  padding: 8px 8px 8px 34px;
+  background: #171717;
+  border-radius: 10px;
+}
+.nbd-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #303134;
+}
+.nbd-li-title {
+  font-weight: 600;
+}
+.nbd-li-sum {
+  font-size: 12px;
+  color: #9aa0a6;
+}
+.nbd-li-why {
+  font-size: 12px;
+  color: #f28b82;
+}
+.nbd-list li.nbd-doing {
+  background: rgba(138, 180, 248, 0.15);
+}
+.nbd-list li.nbd-done {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+.nbd-list li.nbd-unmarked {
+  background: rgba(253, 214, 99, 0.16);
+}
+.nbd-list li.nbd-fail {
+  background: rgba(229, 83, 75, 0.2);
+}
+.nbd-progress {
+  margin-top: 10px;
+  font-weight: 600;
+}
+.nbd-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* 並び替え(下のバー)と、長押しドラッグ */
+#nbd-bar .nbd-sort {
+  padding: 4px 6px;
+  border-radius: 999px;
+  font-size: 13px;
+  max-width: 190px;
+}
+html.nbd-off #nbd-bar .nbd-sort {
+  display: none !important;
+}
+html.nbd-dragging,
+html.nbd-dragging * {
+  user-select: none !important;
+  cursor: grabbing !important;
+}
+mat-card.nbd-lifted {
+  opacity: 0.55;
+  outline: 2px dashed #8ab4f8 !important;
+  outline-offset: -2px;
+}
+mat-card.nbd-drop-to {
+  outline: 3px solid #8ab4f8 !important;
+  outline-offset: -3px;
+  box-shadow: 0 0 0 4px rgba(138, 180, 248, 0.25);
+}
+
+/* 題名・カテゴリの画面: 行ごとのチェック欄と、全部選ぶ */
+.nbd-li-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.nbd-li-head .nbd-cb,
+.nbd-all .nbd-cb {
+  flex: 0 0 auto;
+  margin: 0;
+}
+.nbd-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+tr.nbd-lifted {
+  opacity: 0.55;
+  background: rgba(138, 180, 248, 0.12) !important;
+}
+tr.nbd-drop-to {
+  box-shadow: inset 0 3px 0 #8ab4f8;
+  background: rgba(138, 180, 248, 0.18) !important;
+}

@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "ノートまとめて整理 for Gemini Notebook",
+  "short_name": "ノートまとめて整理",
+  "version": "1.8.1",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "description": "Gemini Notebook のノートを、チェックしてまとめて削除・題名とカテゴリをまとめて変更・ノートの中の重複した資料をまとめて削除できます。",
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "ノートまとめて整理(使い方を開く)",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://notebook.google.com/*"
+      ],
+      "js": [
+        "summaries.js",
+        "common.js",
+        "content.js",
+        "sources.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "summaries.json"
+      ],
+      "matches": [
+        "https://notebook.google.com/*"
+      ]
+    }
+  ]
+}
